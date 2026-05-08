@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Glamzi — Jewellery That Turns Heads</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #C9A84C;
+      --black: #0A0A0A;
+      --off-black: #111111;
+      --dark: #1A1A1A;
+      --cream: #FAF6EF;
+      --muted: #888;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 0.9rem 1.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,10,10,0.97);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .nav-wa {
+      background: var(--gold);
+      color: var(--black);
+      text-decoration: none;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.55rem 1rem;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 6rem 1.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 55% at 50% 50%, rgba(201,168,76,0.09) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(201,168,76,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-ring {
+      position: absolute;
+      width: min(500px, 90vw);
+      height: min(500px, 90vw);
+      border: 1px solid rgba(201,168,76,0.07);
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: spin 35s linear infinite;
+      pointer-events: none;
+    }
+
+    .hero-ring::before {
+      content: '';
+      position: absolute;
+      inset: 30px;
+      border: 1px solid rgba(201,168,76,0.04);
+      border-radius: 50%;
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .hero-badge {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.2s forwards;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(5rem, 22vw, 10rem);
+      font-weight: 300;
+      line-height: 0.88;
+      letter-spacing: -0.01em;
+      color: var(--cream);
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.4s forwards;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      margin-top: 0.6rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.55s forwards;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-sub {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 0.6rem;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.65s forwards;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 100%;
+      max-width: 290px;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.85s forwards;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--black);
+      padding: 1rem 1.5rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      border: 1px solid var(--gold);
+      text-align: center;
+      display: block;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--cream);
+      padding: 1rem 1.5rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 400;
+      border: 1px solid rgba(255,255,255,0.18);
+      text-align: center;
+      display: block;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      z-index: 1;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: linePulse 2s ease infinite;
+    }
+
+    .hero-scroll span {
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @keyframes linePulse {
+      0%,100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      background: var(--gold);
+      padding: 0.7rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 20s linear infinite;
+    }
+
+    .marquee-track span {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--black);
+      font-weight: 500;
+      padding: 0 1.4rem;
+    }
+
+    .marquee-track .dot { opacity: 0.3; }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── SECTIONS ── */
+    .sec { padding: 4rem 1.5rem; }
+
+    .sec-dark {
+      background: var(--off-black);
+      border-top: 1px solid rgba(201,168,76,0.08);
+      border-bottom: 1px solid rgba(201,168,76,0.08);
+    }
+
+    .lbl {
+      display: block;
+      font-size: 0.58rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .hdg {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.9rem, 7vw, 3rem);
+      font-weight: 300;
+      line-height: 1.18;
+      color: var(--cream);
+    }
+
+    .hdg em { font-style: italic; color: var(--gold); }
+
+    /* ── ABOUT ── */
+    .about-p {
+      margin-top: 1.1rem;
+      font-size: 0.88rem;
+      line-height: 1.85;
+      color: var(--muted);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 2.2rem;
+    }
+
+    .stat {
+      background: var(--dark);
+      padding: 1.3rem 1.1rem;
+      border: 1px solid rgba(201,168,76,0.1);
+    }
+
+    .stat-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      font-weight: 300;
+      line-height: 1;
+    }
+
+    .stat-l {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    /* ── CATEGORIES ── */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 2.2rem;
+    }
+
+    .cat-card {
+      background: var(--dark);
+      padding: 1.8rem 1rem;
+      text-align: center;
+      border: 1px solid rgba(201,168,76,0.08);
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color 0.3s;
+    }
+
+    .cat-card:active { border-color: rgba(201,168,76,0.4); }
+
+    .cat-ic { font-size: 1.9rem; display: block; margin-bottom: 0.8rem; }
+
+    .cat-nm {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.18rem;
+      color: var(--cream);
+      margin-bottom: 0.35rem;
+    }
+
+    .cat-ds { font-size: 0.67rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── WHY ── */
+    .why-list {
+      margin-top: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .why-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1.4rem 1.1rem;
+      background: var(--dark);
+      border: 1px solid rgba(201,168,76,0.08);
+    }
+
+    .why-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      color: rgba(201,168,76,0.2);
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: 2.2rem;
+    }
+
+    .why-t {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: var(--cream);
+      margin-bottom: 0.35rem;
+    }
+
+    .why-d { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── EXHIBITION ── */
+    .exh {
+      background: var(--gold);
+      padding: 4rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .exh::before {
+      content: '✦';
+      position: absolute;
+      font-size: 14rem;
+      color: rgba(0,0,0,0.06);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    .exh-lbl {
+      font-size: 0.6rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.4);
+      margin-bottom: 0.7rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .exh-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 9vw, 3.5rem);
+      font-weight: 300;
+      color: var(--black);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .exh-venue {
+      font-size: 0.82rem;
+      color: rgba(0,0,0,0.58);
+      line-height: 1.8;
+      margin-bottom: 0.4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .exh-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: var(--black);
+      font-weight: 400;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-black {
+      display: inline-block;
+      background: var(--black);
+      color: var(--gold);
+      padding: 1rem 2.2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      border: 1px solid var(--black);
+      position: relative;
+      z-index: 2;
+      pointer-events: all;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ── CONTACT ── */
+    .contact-links {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--cream);
+      font-size: 0.86rem;
+      padding: 1rem 1.1rem;
+      background: var(--dark);
+      border: 1px solid rgba(201,168,76,0.1);
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color 0.25s;
+    }
+
+    .contact-link:active { border-color: var(--gold); }
+
+    .contact-link .ico {
+      font-size: 1.15rem;
+      width: 1.7rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(201,168,76,0.1);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-txt {
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      line-height: 1.9;
+    }
+
+    /* ── FLOATING WA ── */
+    .wa-float {
+      position: fixed;
+      bottom: 1.4rem;
+      right: 1.4rem;
+      z-index: 999;
+      background: #25D366;
+      color: white;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 18px rgba(37,211,102,0.45);
+      animation: waPulse 3s ease infinite;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    @keyframes waPulse {
+      0%,100% { box-shadow: 0 4px 18px rgba(37,211,102,0.4); }
+      50% { box-shadow: 0 4px 28px rgba(37,211,102,0.7); }
+    }
+
+    /* ── DESKTOP ── */
+    @media (min-width: 768px) {
+      nav { padding: 1.1rem 3rem; }
+      .nav-logo { font-size: 1.9rem; }
+
+      .hero { padding: 8rem 2rem 5rem; }
+      .hero-buttons { flex-direction: row; max-width: none; width: auto; }
+      .btn-gold, .btn-outline { display: inline-block; padding: 1rem 2.2rem; }
+
+      .sec { padding: 6rem 4rem; max-width: 1100px; margin: 0 auto; }
+      .sec-dark .sec { padding: 5rem 4rem; }
+
+      .stats { grid-template-columns: repeat(4,1fr); }
+      .cat-grid { grid-template-columns: repeat(4,1fr); }
+
+      .why-list { flex-direction: row; }
+      .why-item { flex-direction: column; flex: 1; }
+
+      .exh { padding: 6rem 4rem; }
+
+      footer {
+        padding: 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+      }
+
+      .footer-brand { margin-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">GLAMZI</a>
+    <a class="nav-wa" href="https://wa.me/918849904897?text=Hi%20Glamzi!%20I%20want%20to%20enquire%20about%20your%20jewellery" target="_blank">💬 Order Now</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-ring"></div>
+    <p class="hero-badge">✦ New Arrivals Every Week ✦</p>
+    <h1 class="hero-title">Glam<em>zi</em></h1>
+    <p class="hero-tagline">Jewellery & More</p>
+    <p class="hero-sub">Surat, India · Pan India Delivery</p>
+    <div class="hero-buttons">
+      <a href="https://wa.me/918849904897?text=Hi%20Glamzi!%20I%20want%20to%20enquire%20about%20your%20jewellery" class="btn-gold" target="_blank">💬 Shop on WhatsApp</a>
+      <a href="#collection" class="btn-outline">View Collection</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>Antique Jewellery</span><span class="dot">✦</span>
+      <span>Fashion Pieces</span><span class="dot">✦</span>
+      <span>Statement Earrings</span><span class="dot">✦</span>
+      <span>Trendy Necklaces</span><span class="dot">✦</span>
+      <span>Rings & Bracelets</span><span class="dot">✦</span>
+      <span>Based in Surat</span><span class="dot">✦</span>
+      <span>Pan India Delivery</span><span class="dot">✦</span>
+      <span>Antique Jewellery</span><span class="dot">✦</span>
+      <span>Fashion Pieces</span><span class="dot">✦</span>
+      <span>Statement Earrings</span><span class="dot">✦</span>
+      <span>Trendy Necklaces</span><span class="dot">✦</span>
+      <span>Rings & Bracelets</span><span class="dot">✦</span>
+      <span>Based in Surat</span><span class="dot">✦</span>
+      <span>Pan India Delivery</span><span class="dot">✦</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="sec" id="about">
+    <span class="lbl">Our Story</span>
+    <h2 class="hdg">Jewellery for <em>every</em> woman,<br>every occasion</h2>
+    <p class="about-p">At Glamzi, we believe every woman deserves to feel stunning — without breaking the bank. From antique-finish statement pieces to trendy everyday wear, our collection is curated with love from Surat.</p>
+    <p class="about-p">Whether it's a wedding, a festive celebration, or just a regular Tuesday — we have the perfect piece for you.</p>
+    <div class="stats">
+      <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Unique Pieces</div></div>
+      <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Curated Quality</div></div>
+      <div class="stat"><div class="stat-n">Pan</div><div class="stat-l">India Delivery</div></div>
+      <div class="stat"><div class="stat-n">∞</div><div class="stat-l">Style Options</div></div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="sec-dark" id="collection">
+    <div class="sec">
+      <span class="lbl">Shop by Category</span>
+      <h2 class="hdg">Find your <em>perfect</em> piece</h2>
+      <div class="cat-grid">
+        <div class="cat-card">
+          <span class="cat-ic">💎</span>
+          <div class="cat-nm">Earrings</div>
+          <div class="cat-ds">Studs · Jhumkas · Chandbalis · Hoops</div>
+        </div>
+        <div class="cat-card">
+          <span class="cat-ic">📿</span>
+          <div class="cat-nm">Necklaces</div>
+          <div class="cat-ds">Chokers · Long chains · Statement sets</div>
+        </div>
+        <div class="cat-card">
+          <span class="cat-ic">💍</span>
+          <div class="cat-nm">Rings</div>
+          <div class="cat-ds">Stackable · Cocktail · Antique finish</div>
+        </div>
+        <div class="cat-card">
+          <span class="cat-ic">✨</span>
+          <div class="cat-nm">Bracelets</div>
+          <div class="cat-ds">Bangles · Kadas · Charm bracelets</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY GLAMZI -->
+  <section class="sec">
+    <span class="lbl">Why Glamzi</span>
+    <h2 class="hdg">More than just <em>jewellery</em></h2>
+    <div class="why-list">
+      <div class="why-item">
+        <div class="why-n">01</div>
+        <div>
+          <div class="why-t">Trendy & Affordable</div>
+          <p class="why-d">Latest styles without the luxury price tag. We curate the best fashion and antique jewellery so you always look stunning.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-n">02</div>
+        <div>
+          <div class="why-t">New Stock Weekly</div>
+          <p class="why-d">Fresh arrivals every week. Follow us on Instagram and never miss a collection drop. First come, first served.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-n">03</div>
+        <div>
+          <div class="why-t">Easy WhatsApp Ordering</div>
+          <p class="why-d">No complicated checkout. Message us on WhatsApp, pick your pieces, and we deliver anywhere in India.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXHIBITION -->
+  <section class="exh" id="exhibition">
+    <p class="exh-lbl">✦ Don't Miss Us ✦</p>
+    <h2 class="exh-title">Visit Us at the<br>Exhibition</h2>
+    <p class="exh-venue">📍 Govindji Hall, Dabholi<br>Katargam, Surat — 395004</p>
+    <p class="exh-date">16th May – 17th May 2026</p>
+    <a href="https://wa.me/918849904897?text=Hi%20Glamzi!%20I%20want%20to%20know%20more%20about%20the%20exhibition" class="btn-black" target="_blank">Get Details on WhatsApp</a>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="sec-dark" id="contact">
+    <div class="sec">
+      <span class="lbl">Get in Touch</span>
+      <h2 class="hdg">Let's find your <em>perfect</em> piece</h2>
+      <div class="contact-links">
+        <a href="https://wa.me/918849904897?text=Hi%20Glamzi!%20I%20want%20to%20enquire%20about%20your%20jewellery" class="contact-link" target="_blank">
+          <span class="ico">💬</span><span>WhatsApp — 8849904897</span>
+        </a>
+        <a href="https://instagram.com/glamzi.in" class="contact-link" target="_blank">
+          <span class="ico">📸</span><span>Instagram — @glamzi.in</span>
+        </a>
+        <a href="https://glamzi.store" class="contact-link" target="_blank">
+          <span class="ico">🌐</span><span>glamzi.store</span>
+        </a>
+        <a href="#" class="contact-link">
+          <span class="ico">📍</span><span>Surat, Gujarat, India</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">GLAMZI</div>
+    <div class="footer-txt">
+      © 2026 Glamzi · glamzi.store<br>
+      Made with ✨ in Surat, India · All rights reserved
+    </div>
+  </footer>
+
+  <!-- FLOATING WA -->
+  <a class="wa-float" href="https://wa.me/918849904897?text=Hi%20Glamzi!%20I%20want%20to%20enquire%20about%20your%20jewellery" target="_blank" aria-label="Chat on WhatsApp">💬</a>
+
+</body>
+</html>
